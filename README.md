@@ -65,21 +65,6 @@ src/main/java/com/employee/
 - Java 17 or higher
 - Maven (optional - can compile with javac)
 
-### Option 1: Using Maven
-```bash
-mvn clean compile
-mvn exec:java -Dexec.mainClass="com.employee.App"
-```
-
-### Option 2: Using javac (without Maven)
-```bash
-# Compile
-javac -d target/classes -sourcepath src/main/java src/main/java/com/employee/App.java src/main/java/com/employee/controller/MainMenu.java src/main/java/com/employee/service/*.java src/main/java/com/employee/model/*.java src/main/java/com/employee/repository/*.java src/main/java/com/employee/util/*.java
-
-# Run
-java -cp target/classes com.employee.App
-```
-
 ## Default Login Credentials
 
 - **Username:** admin
@@ -110,6 +95,3 @@ java -cp target/classes com.employee.App
 - **Data Storage:** In-memory (HashMap)
 - **Architecture:** Layered (Controller, Service, Repository, Model)
 
-## Author
-
-Created as a demonstration of Java OOP principles and Maven project structure.
