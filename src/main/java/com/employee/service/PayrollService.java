@@ -1,21 +1,21 @@
 package com.employee.service;
 
 import com.employee.model.Employee;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PayrollService implements PayrollOperations {
+    private static final Logger logger = LoggerFactory.getLogger(PayrollService.class);
 
     @Override
     public double calculateSalary(Employee employee) {
         if (employee == null) {
-            System.out.println("✗ Error: Employee not found");
+            logger.error("Cannot calculate salary: Employee not found");
             return 0.0;
         }
 
         double baseSalary = employee.getSalary();
-        System.out.println("\n--- Salary Calculation ---");
-        System.out.println("Employee: " + employee.getName());
-        System.out.println("Base Salary: $" + baseSalary);
+        logger.debug("Salary calculation - Employee: {}, Base Salary: ${}", employee.getName(), baseSalary);
 
         return baseSalary;
     }
@@ -23,10 +23,12 @@ public class PayrollService implements PayrollOperations {
     @Override
     public void generatePayrollReport(Employee employee) {
         if (employee == null) {
-            System.out.println("✗ Error: Employee not found");
+            logger.error("Cannot generate payroll report: Employee not found");
             return;
         }
 
+        logger.info("Generating payroll report for Employee ID: {}, Name: {}", employee.getEmployeeId(),
+                employee.getName());
         System.out.println("\n========== PAYROLL REPORT ==========");
         System.out.println("Employee ID: " + employee.getEmployeeId());
         System.out.println("Employee Name: " + employee.getName());
@@ -39,18 +41,15 @@ public class PayrollService implements PayrollOperations {
     @Override
     public double handleDeductions(Employee employee, double deduction) {
         if (employee == null) {
-            System.out.println("✗ Error: Employee not found");
+            logger.error("Cannot handle deductions: Employee not found");
             return 0.0;
         }
 
         double baseSalary = employee.getSalary();
         double netSalary = baseSalary - deduction;
 
-        System.out.println("\n--- Deduction Processing ---");
-        System.out.println("Employee: " + employee.getName());
-        System.out.println("Base Salary: $" + baseSalary);
-        System.out.println("Deduction: $" + deduction);
-        System.out.println("Net Salary: $" + netSalary);
+        logger.debug("Deduction processing - Employee: {}, Base: ${}, Deduction: ${}, Net: ${}",
+                employee.getName(), baseSalary, deduction, netSalary);
 
         return netSalary;
     }

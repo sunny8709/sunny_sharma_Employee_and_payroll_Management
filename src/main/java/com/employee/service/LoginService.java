@@ -1,7 +1,10 @@
 package com.employee.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LoginService {
+    private static final Logger logger = LoggerFactory.getLogger(LoginService.class);
     private AuthService authService;
 
     public LoginService() {
@@ -9,16 +12,15 @@ public class LoginService {
     }
 
     public boolean login(String username, String password) {
-        System.out.println("\n--- User Login ---");
-        System.out.println("Authenticating user: " + username);
+        logger.info("User login attempt: {}", username);
 
         boolean isAuthenticated = authService.validateCredentials(username, password);
 
         if (isAuthenticated) {
-            System.out.println("✓ Login successful!");
+            logger.info("Login successful for user: {}", username);
             return true;
         } else {
-            System.out.println("✗ Login failed! Invalid credentials.");
+            logger.warn("Login failed for user: {} - Invalid credentials", username);
             return false;
         }
     }

@@ -1,7 +1,10 @@
 package com.employee.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthService {
+    private static final Logger logger = LoggerFactory.getLogger(AuthService.class);
     private static final String VALID_USERNAME = "admin";
     private static final String VALID_PASSWORD = "admin123";
 
@@ -12,7 +15,7 @@ public class AuthService {
             }
             return VALID_USERNAME.equals(username) && VALID_PASSWORD.equals(password);
         } catch (Exception e) {
-            System.out.println("Authentication Exception: " + e.getMessage());
+            logger.error("Authentication exception: {}", e.getMessage(), e);
             return false;
         }
     }

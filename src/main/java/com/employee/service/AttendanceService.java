@@ -1,11 +1,13 @@
 package com.employee.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class AttendanceService {
+    private static final Logger logger = LoggerFactory.getLogger(AttendanceService.class);
     private HashMap<Long, List<String>> attendanceDatabase;
 
     public AttendanceService() {
@@ -14,7 +16,7 @@ public class AttendanceService {
 
     public void trackAttendance(Long employeeId, String date, boolean present) {
         if (employeeId == null || date == null) {
-            System.out.println("✗ Error: Invalid attendance data");
+            logger.error("Invalid attendance data - Employee ID: {}, Date: {}", employeeId, date);
             return;
         }
 
@@ -23,12 +25,12 @@ public class AttendanceService {
         attendanceDatabase.putIfAbsent(employeeId, new ArrayList<>());
         attendanceDatabase.get(employeeId).add(record);
 
-        System.out.println("✓ Attendance recorded for Employee ID " + employeeId + ": " + record);
+        logger.info("Attendance recorded for Employee ID {}: {}", employeeId, record);
     }
 
     public List<String> viewAttendance(Long employeeId) {
         if (!attendanceDatabase.containsKey(employeeId)) {
-            System.out.println("✗ No attendance records found for Employee ID " + employeeId);
+            logger.warn("No attendance records found for Employee ID {}", employeeId);
             return new ArrayList<>();
         }
 
@@ -36,6 +38,7 @@ public class AttendanceService {
     }
 
     public void generateAttendanceReport(Long employeeId) {
+        logger.info("Generating attendance report for Employee ID: {}", employeeId);
         System.out.println("\n========== ATTENDANCE REPORT ==========");
         System.out.println("Employee ID: " + employeeId);
 
